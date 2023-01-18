@@ -1,0 +1,8 @@
+/logs/
+/bhdcleanpacks
+/bhdcleanpacks.exe
+*.sh
+*.txt
+*.log
+*.yml
+*.yaml
