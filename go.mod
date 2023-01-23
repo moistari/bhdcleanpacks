@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/anacrolix/torrent v1.48.0
-	github.com/moistari/bhdapi v0.2.0
+	github.com/moistari/bhdapi v0.2.2
 	github.com/moistari/rls v0.5.5
 	github.com/yookoala/realpath v1.0.0
 )

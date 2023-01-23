@@ -40,33 +40,24 @@ func run(ctx context.Context, debug bool, out, key, rss string, d time.Duration,
 		bhdapi.WithApiKey(key),
 		bhdapi.WithRssKey(rss, false),
 	)
+	req := bhdapi.Search().
+		WithSort("created_at").
+		WithOrder("desc").
+		WithAlive(true)
 	var torrents []bhdapi.Torrent
-loop:
-	for count, page, hasMore, t := 0, 1, true, now.Add(-d); hasMore; page++ {
-		req := bhdapi.Search().
-			WithSort("created_at").
-			WithOrder("desc").
-			WithAlive(true).
-			WithPage(page)
-		res, err := req.Do(ctx, cl)
-		if err != nil {
-			return err
+	for t := now.Add(-d); req.Next(ctx, cl); {
+		torrent := req.Cur()
+		if torrent.CreatedAt.Before(t) {
+			break
 		}
-		for _, torrent := range res.Results {
-			if torrent.CreatedAt.Before(t) {
-				break loop
-			}
-			torrents = append(torrents, torrent)
-			count++
-		}
-		hasMore = count < res.TotalResults
+		torrents = append(torrents, torrent)
 	}
-	count := 0
 	f, err := os.OpenFile(now.Format(out), os.O_CREATE|os.O_TRUNC|os.O_WRONLY, 0o644)
 	if err != nil {
 		return err
 	}
 	defer f.Close()
+	count := 0
 	for _, torrent := range torrents {
 		// logf("%d: %q %s -- %s", torrent.ID, torrent.Name, torrent.CreatedAt.Format("2006-01-02 15:04:05"), torrent.URL)
 		meta, info, err := grabTorrent(ctx, cl, cacheDir, torrent)
@@ -101,19 +92,11 @@ func getToRemove(ctx context.Context, cl *bhdapi.Client, dir string, target bhda
 	if target.ImdbID == "" {
 		return nil, fmt.Errorf("missing imdb id")
 	}
-	var torrents []bhdapi.Torrent
-	for count, page, hasMore := 0, 1, true; hasMore; page++ {
-		req := bhdapi.Search().
-			WithImdbID(target.ImdbID)
-		res, err := req.Do(ctx, cl)
-		if err != nil {
-			return nil, err
-		}
-		for _, torrent := range res.Results {
-			torrents = append(torrents, torrent)
-			count++
-		}
-		hasMore = count < res.TotalResults
+	req := bhdapi.Search().
+		WithImdbID(target.ImdbID)
+	torrents, err := req.All(ctx, cl)
+	if err != nil {
+		return nil, err
 	}
 	var toRemove []bhdapi.Torrent
 	for _, torrent := range torrents {

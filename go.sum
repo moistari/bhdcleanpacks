@@ -123,8 +123,8 @@ github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJ
 github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
 github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
 github.com/modern-go/reflect2 v1.0.1/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
-github.com/moistari/bhdapi v0.2.0 h1:Vc5e5If2gdG4Q2cYrquM/BjTi3x9LwpPxgxZroOiRWw=
-github.com/moistari/bhdapi v0.2.0/go.mod h1:njuCVuJkwoJ3fL7r6pYttBqFMT+gSpZikXa60ZM3SY0=
+github.com/moistari/bhdapi v0.2.2 h1:mTNbnWL5ZFo7vJs3EKJVNAC9ueCABvmO619R1bAaccA=
+github.com/moistari/bhdapi v0.2.2/go.mod h1:njuCVuJkwoJ3fL7r6pYttBqFMT+gSpZikXa60ZM3SY0=
 github.com/moistari/rls v0.5.5 h1:sVj1G5E2eIeqJQh9sdQ4THXCLEBlJElXVxoUwFBY9Uw=
 github.com/moistari/rls v0.5.5/go.mod h1:+VmEKlV6nBXzhGxyO9NoHIp8ywSQlm89UUGPNi8vZVc=
 github.com/mschoch/smat v0.0.0-20160514031455-90eadee771ae/go.mod h1:qAyveg+e4CE+eKJXWVjKXM4ck2QobLqTDytGJbLLhJg=
